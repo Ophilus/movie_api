@@ -4,7 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Documentation</title>
+  <style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
 </head>
 <body>
   <h1>Achievement 2 Project: myFlix</h1>
@@ -13,5 +18,62 @@ application will provide users with access to information about different
 movies, directors, and genres. Users will be able to sign up, update their
 personal information, and create a list of their favorite movies.
 </p>
+  <table>
+    <thead>
+      <tr>
+        <th>REQUEST</th>
+        <th>URL</th>
+        <th>HTTP METHOD</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Get list of ALL movies</td>
+        <td>/movies</td>
+        <td>GET</td>
+      </tr>
+      <tr>
+        <td>Get data about a single movie</td>
+        <td>/movies/:title</td>
+        <td>GET</td>
+      </tr>
+      <tr>
+        <td>Get data about a genre</td>
+        <td>/genres/:title</td>
+        <td>GET</td>
+      </tr>
+      <tr>
+        <td>Get data about a director</td>
+        <td>/directors/:name</td>
+        <td>GET</td>
+      </tr>
+      <tr>
+        <td>New user registration</td>
+        <td>/users</td>
+        <td>POST</td>
+      </tr>
+      <tr>
+        <td>Add movie to favorites</td>
+        <td>/users/:id/favoriteMovies/:name</td>
+        <td>POST</td>
+      </tr>
+      <tr>
+        <td>Update user info</td>
+        <td>/users/:name</td>
+        <td>PUT</td>
+      </tr>
+      <tr>
+        <td>Remove movie from favorites</td>
+        <td>/users/:id/favoriteMovies/:name</td>
+        <td>DELETE</td>
+      </tr>
+      <tr>
+        <td>Remove user</td>
+        <td>/users/:id</td>
+        <td>DELETE</td>
+      </tr>
+    </tbody>
+  </table>
+
 </body>
 </html>
