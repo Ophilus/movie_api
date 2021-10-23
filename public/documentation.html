@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Documentation</title>
   <style>
-table, th, td {
-  border:1px solid black;
-}
-</style>
+    table,
+    th,
+    td {
+      border: 1px solid black;
+    }
+  </style>
 </head>
+
 <body>
   <h1>Achievement 2 Project: myFlix</h1>
   <p>To build the server-side component of a “movies” web application. The web
-application will provide users with access to information about different
-movies, directors, and genres. Users will be able to sign up, update their
-personal information, and create a list of their favorite movies.
-</p>
+    application will provide users with access to information about different
+    movies, directors, and genres. Users will be able to sign up, update their
+    personal information, and create a list of their favorite movies.
+  </p>
   <table>
     <thead>
       <tr>
         <th>REQUEST</th>
         <th>URL</th>
         <th>HTTP METHOD</th>
+        <th>Request body data format</th>
+        <th>Response body data format</th>
       </tr>
     </thead>
     <tbody>
@@ -31,49 +37,150 @@ personal information, and create a list of their favorite movies.
         <td>Get list of ALL movies</td>
         <td>/movies</td>
         <td>GET</td>
+        <td>None</td>
+        <td>A JSON object holding data about all the movies</td>
       </tr>
       <tr>
         <td>Get data about a single movie</td>
         <td>/movies/:title</td>
         <td>GET</td>
+        <td>None</td>
+        <td>
+          A JSON object holding data about a single student, containing an ID, title, description and etc. Example:
+          <pre>{
+    "Genre": {
+        "Name": "Fantasy",
+        "Description": "Fantasy films are films ..."
+    },
+    "Director": {
+        "Name": "Christopher Nolan",
+        "Bio": "Christopher Edward ...",
+        "Birth": "1970-07-30"
+    },
+    "_id": "616b49cfbe72e551888c3193",
+    "Title": "Inception",
+    "Description": "A thief who steals corporate ...",
+    "ImagePath": "inception.png",
+    "Featured": true
+}</pre>
+        </td>
       </tr>
       <tr>
         <td>Get data about a genre</td>
-        <td>/genres/:title</td>
+        <td>/genres/:name</td>
         <td>GET</td>
+        <td>None</td>
+        <td>
+          A JSON object holding data about a genre, containing a name and description. Example:
+          <pre>
+{
+   "Name": "Action",
+   "Description": "Action film is a film genre in which the protagonist or protagonists are thrust into a series of events that typically include violence, extended fighting, physical feats, rescues and frantic chases."
+}
+          </pre>
+        </td>
       </tr>
       <tr>
         <td>Get data about a director</td>
         <td>/directors/:name</td>
         <td>GET</td>
+        <td>None</td>
+        <td>
+          A JSON object holding data about a director, containing a name, bio and date of birth(death). Example:
+          <pre>
+{
+    "Name": "Robert Zemeckis",
+    "Bio": "Robert Lee Zemeckis is an American film director, film producer, and screenwriter who is frequently credited as an innovator in visual effects.",
+    "Birth": "1951-05-14"
+}
+</pre>
+        </td>
       </tr>
       <tr>
         <td>New user registration</td>
         <td>/users</td>
         <td>POST</td>
+        <td>
+          A JSON object holding data about the user to add, structured like:
+          <pre>
+{
+    "Username": "sunny123",
+    "Password": "pass1997",
+    "Email": "example133@gmail.com",
+    "Birthday": "1997-03-20",
+    "FavoriteMovies": []
+}
+          </pre>
+        </td>
+        <td>
+          A JSON object holding data about the user that was added, including an ID:
+          <pre>
+{
+    "Username": "sunny123",
+    "Password": "pass1997",
+    "Email": "example133@gmail.com",
+    "Birthday": "1997-03-20T00:00:00.000Z",
+    "FavoriteMovies": [],
+    "_id": "617434275fbd53bc1239e467",
+    "__v": 0
+}
+          </pre>
+        </td>
       </tr>
       <tr>
         <td>Add movie to favorites</td>
-        <td>/users/:id/favoriteMovies/:name</td>
+        <td>/users/:Username/movies/:MovieID</td>
         <td>POST</td>
+        <td>None</td>
+        <td>A JSON object holding data about the user, with an updated list of favorite movie</td>
       </tr>
       <tr>
         <td>Update user info</td>
-        <td>/users/:name</td>
+        <td>/users/:Username</td>
         <td>PUT</td>
+        <td>
+          A JSON object holding data about the user to update, structured like:
+          <pre>
+{
+    "Username": "sunny123",
+    "Password": "1231997",
+    "Email": "example133@gmail.com",
+    "Birthday": "1997-03-20",
+    "FavoriteMovies": []
+}
+          </pre>
+        </td>
+        <td>A JSON object holding data about the user that was updated:
+          <pre>
+  {
+      "_id": "617434275fbd53bc1239e467",
+      "Username": "sunny123",
+      "Password": "1231997",
+      "Email": "example133@gmail.com",
+      "Birthday": "1997-03-20T00:00:00.000Z",
+      "FavoriteMovies": [],
+      "__v": 0
+  }
+</pre>
+        </td>
       </tr>
       <tr>
         <td>Remove movie from favorites</td>
-        <td>/users/:id/favoriteMovies/:name</td>
+        <td>/users/:Username/movies/:MovieID</td>
         <td>DELETE</td>
+        <td>None</td>
+        <td>A JSON object holding data about the user, with an updated list of favorite movie</td>
       </tr>
       <tr>
         <td>Remove user</td>
-        <td>/users/:id</td>
+        <td>/users/:Username</td>
         <td>DELETE</td>
+        <td>None</td>
+        <td>A text message indicating whether the user was successfully removed</td>
       </tr>
     </tbody>
   </table>
 
 </body>
+
 </html>
