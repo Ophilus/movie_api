@@ -9,6 +9,9 @@ Users = Models.User;
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(express.static('public'));
@@ -21,10 +24,8 @@ app.get('/', (req, res) => {
 });
 
 
-/////////////////////////////////////
-
-//??
- app.get('/movies', (req, res) => {
+//
+ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
    Movies.find()
      .then((movie) => {
        res.status(201).json(movie);
@@ -36,8 +37,7 @@ app.get('/', (req, res) => {
  });
 
 
- //////////////////????????///////////////////
-
+ //
 
  app.get('/movies/:title', (req, res) => {
    Movies.findOne({ Title: req.params.title })
@@ -51,8 +51,7 @@ app.get('/', (req, res) => {
  });
 
 
- /////////////////?????????////////////////////
-
+ //
 
  app.get('/genres/:name', (req, res) => {
    Movies.find({ 'Genre.Name': req.params.name})
@@ -66,8 +65,7 @@ app.get('/', (req, res) => {
  });
 
 
- ///////////////????????????????///////////////////////
-
+ //
 
  app.get('/directors/:name', (req, res) => {
    Movies.find({ 'Director.Name': req.params.name })
@@ -81,8 +79,7 @@ app.get('/', (req, res) => {
  });
 
 
- /////////////////////////////////////
-
+ //
 
  app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
@@ -111,8 +108,7 @@ app.get('/', (req, res) => {
 });
 
 
-/////////////////////////////////////
-
+//
 
 app.get('/users', (req, res) => {
   Users.find()
@@ -126,8 +122,7 @@ app.get('/users', (req, res) => {
 });
 
 
-/////////////////////////////////////
-
+//
 
 app.post('/users/:Username/movies/:MovieID', (req, res) => {
  Users.findOneAndUpdate({ Username: req.params.Username }, {
@@ -145,8 +140,7 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
 });
 
 
-/////////////////////////////////////
-
+//
 
  app.put('/users/:Username', (req, res) => {
   Users.findOneAndUpdate(
@@ -171,8 +165,7 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
 });
 
 
-/////////////////////////////////////
-
+//
 
  app.delete('/users/:Username/movies/:MovieID', (req, res) => {
    Users.findOneAndUpdate({ Username: req.params.Username }, {
@@ -190,8 +183,7 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
  });
 
 
- /////////////////////////////////////
-
+ //
 
  app.delete('/users/:Username', (req, res) => {
   Users.findOneAndRemove({ Username: req.params.Username })
