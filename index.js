@@ -156,6 +156,19 @@ app.get('/users/:username', passport.authenticate('jwt', { session: false }), (r
     });
 });
 
+//
+
+app.get('/users/:username/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Users.findOne({ Username: req.params.username })
+    .then((users) => {
+      res.status(201).json(users.FavoriteMovies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
 
 //
 
